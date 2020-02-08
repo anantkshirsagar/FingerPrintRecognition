@@ -1,17 +1,11 @@
-import com.mantra.model.ExportData;
+import java.util.concurrent.ExecutionException;
+
 import com.mantra.service.BiometricService;
 
-import MFS100.FingerData;
-
 public class TestFingerPrint {
-	public static void main(String[] args) throws InterruptedException {
-		BiometricService service = new BiometricService();
+	public static void main(String[] args) throws InterruptedException, ExecutionException {
+		EventManager eventManager = new EventManager();
+		BiometricService service = new BiometricService(eventManager);
 		service.startCapture(55, 5000, true);
-		//Thread.sleep(5000);
-		FingerData fingerData = service.getFingerPrintEvent().getFingerData();
-		ExportData exportData = service.getExportData(fingerData);
-		
-		System.out.println(new String(exportData.getIsoImageData().getData()));
-		
 	}
 }
